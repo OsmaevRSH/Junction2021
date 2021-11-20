@@ -102,9 +102,9 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="Date" destination="106-hs-krj" id="Co8-rT-t6w"/>
-                                            <outlet property="Name" destination="VbN-A5-aX1" id="7Lg-r7-jF3"/>
-                                            <outlet property="Task" destination="nTI-lQ-pxn" id="O2A-nJ-XOM"/>
+                                            <outlet property="date" destination="106-hs-krj" id="Co8-rT-t6w"/>
+                                            <outlet property="name" destination="VbN-A5-aX1" id="7Lg-r7-jF3"/>
+                                            <outlet property="task" destination="nTI-lQ-pxn" id="O2A-nJ-XOM"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -241,8 +241,10 @@
                     </view>
                     <navigationItem key="navigationItem" id="fnC-VV-O3r"/>
                     <connections>
-                        <outlet property="TaskDescription" destination="L0Y-da-Kw0" id="eXg-m6-VZX"/>
+                        <outlet property="calendar" destination="0cw-jw-9bn" id="z9y-bs-tO1"/>
                         <outlet property="submitButton" destination="xnZ-QV-T3o" id="oto-ep-d23"/>
+                        <outlet property="task" destination="yDf-xu-oTX" id="g5Q-l7-dv3"/>
+                        <outlet property="taskDescription" destination="L0Y-da-Kw0" id="eXg-m6-VZX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OPH-bn-I4p" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

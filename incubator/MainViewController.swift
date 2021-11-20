@@ -5,6 +5,9 @@ class MainViewController: UIViewController {
 	@IBOutlet weak var userAvatar: UIImageView!
 	@IBOutlet weak var addNewTaskButton: UIButton!
 	let taskTableCellId = "taskTableCell"
+	let httpService = HttpService()
+	var searchResults: [TaskDataModel] = []
+	let jsonService = JsonService()
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -13,6 +16,12 @@ class MainViewController: UIViewController {
 		taskTable.delegate = self
 		taskTable.dataSource = self
 		taskTable.estimatedRowHeight = UITableView.automaticDimension
+	}
+	
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		httpService.GetDataFromApi(url: "http://localhost:8082/get/tasks?name=pip")
+//		httpService.GetDataFromApi(url: "http://localhost:8080/user/1")
 	}
 	
 	func FormatUserAvatar()
@@ -28,7 +37,6 @@ class MainViewController: UIViewController {
 	}
 	
 	@IBAction func unwind (_ seg: UIStoryboardSegue) {
-		print("close 21312321312312")
 	}
 }
 
@@ -40,12 +48,12 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		if let cell = tableView.dequeueReusableCell(withIdentifier: taskTableCellId, for: indexPath) as? TaskTableViewCell
 		{
-			cell.Name.text = "Start"
-			cell.Name.sizeToFit()
-			cell.Task.text = "WenderCast displays a list of raywenderlich.com podcasts and lets users play them. But it doesn’t let users know when a new podcast is available and the News tab is empty! You’ll soon fix these issues with the power of push notifications."
-			cell.Task.sizeToFit()
-			cell.Date.text = "22.12.2012"
-			cell.Date.sizeToFit()
+			cell.name.text = "Start"
+			cell.name.sizeToFit()
+			cell.task.text = "WenderCast displays a list of raywenderlich.com podcasts and lets users play them. But it doesn’t let users know when a new podcast is available and the News tab is empty! You’ll soon fix these issues with the power of push notifications."
+			cell.task.sizeToFit()
+			cell.date.text = "22.12.2012"
+			cell.date.sizeToFit()
 			return cell
 		}
 		return UITableViewCell()

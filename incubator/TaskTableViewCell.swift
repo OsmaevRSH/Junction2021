@@ -2,18 +2,17 @@ import UIKit
 
 class TaskTableViewCell: UITableViewCell {
 	
-	@IBOutlet weak var Name: UILabel!
-	@IBOutlet weak var Task: UILabel!
-	@IBOutlet weak var Date: UILabel!
+	@IBOutlet weak var name: UILabel!
+	@IBOutlet weak var task: UILabel!
+	@IBOutlet weak var date: UILabel!
 	
 	override func awakeFromNib() {
 		super.awakeFromNib()
-		Task.lineBreakMode = .byWordWrapping
-		Task.numberOfLines = 0
+		task.lineBreakMode = .byWordWrapping
+		task.numberOfLines = 0
 	}
 	
 	override func setSelected(_ selected: Bool, animated: Bool) {
 		super.setSelected(selected, animated: animated)
 	}
-	
 }
