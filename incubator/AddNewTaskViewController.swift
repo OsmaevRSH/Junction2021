@@ -30,7 +30,7 @@ class AddNewTaskViewController: UIViewController {
 									 User_name: "pip") //TODO userName
 		
 		if let json = jsonService.ObjToJson(taskData) {
-			httpService.postRequest(url: "http://localhost:8082/create/task", data: json)
+			httpService.PostRequest(url: "http://localhost:8082/create/task", data: json)
 		}
 //		usleep(100000)
 	}

@@ -144,6 +144,8 @@
                         <outlet property="addNewTaskButton" destination="PeP-jT-ucl" id="2BO-Ip-QjR"/>
                         <outlet property="taskTable" destination="DQ6-7B-U2e" id="MRm-nb-0ut"/>
                         <outlet property="userAvatar" destination="HfZ-Dj-Zbw" id="emh-ag-Vzb"/>
+                        <outlet property="userLevel" destination="ptd-Nc-sXG" id="bpv-fb-YzW"/>
+                        <outlet property="userName" destination="M73-NU-MYe" id="C2u-AE-QIL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

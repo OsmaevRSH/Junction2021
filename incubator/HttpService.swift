@@ -9,7 +9,7 @@ class HttpService {
 	typealias JSONDictionary = [String: Any]
 	typealias QueryResult = ([TaskDataModel]?, String) -> Void
 	
-	func GetDataFromApi(url: String, handler: @escaping (Data?, URLResponse?, Error?) -> Void)  {
+	func GetRequest(url: String, handler: @escaping (Data?, URLResponse?, Error?) -> Void)  {
 		let url = URL(string: url)!
 		var request = URLRequest(url: url)
 		request.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -17,7 +17,7 @@ class HttpService {
 		task.resume()
 	}
 	
-	func postRequest(url: String, data: String) {
+	func PostRequest(url: String, data: String) {
 		
 		let url = URL(string: url)!
 		var request = URLRequest(url: url)
@@ -40,5 +40,27 @@ class HttpService {
 		}
 		task.resume()
 		lock.wait()
+	}
+	
+	func DeleteRequest(_ url: String, parameters: [String: String], completion: @escaping ([String: Any]?, Error?) -> Void) {
+		var components = URLComponents(string: url)!
+		components.queryItems = parameters.map { (key, value) in
+			URLQueryItem(name: key, value: value)
+		}
+		components.percentEncodedQuery = components.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
+		var request = URLRequest(url: components.url!)
+		request.httpMethod = "DELETE"
+		
+		let task = URLSession.shared.dataTask(with: request) { data, response, error in
+			guard let data = data, error == nil else {
+				print(error?.localizedDescription ?? "No data")
+				return
+			}
+			let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
+			if let responseJSON = responseJSON as? [String: Any] {
+				print(responseJSON)
+			}
+		}
+		task.resume()
 	}
 }

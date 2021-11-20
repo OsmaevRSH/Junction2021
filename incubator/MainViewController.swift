@@ -4,6 +4,8 @@ class MainViewController: UIViewController {
 	@IBOutlet weak var taskTable: UITableView!
 	@IBOutlet weak var userAvatar: UIImageView!
 	@IBOutlet weak var addNewTaskButton: UIButton!
+	@IBOutlet weak var userName: UILabel!
+	@IBOutlet weak var userLevel: UILabel!
 	let taskTableCellId = "taskTableCell"
 	let httpService = HttpService()
 	var searchResults: [TaskDataModel] = []
@@ -21,21 +23,41 @@ class MainViewController: UIViewController {
 	
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
-		httpService.GetDataFromApi(url: "http://localhost:8082/get/tasks?name=pip")
-		{
+		updateTasks()
+		updateUser()
+	}
+	
+	func updateUser() {
+		httpService.GetRequest(url: "http://localhost:8080/user/pip") {
 			data, response, error in
 			if let data = data {
-				if let temp = self.jsonService.DataToObj(data: data, type: TaskDataModel.self)
+				if let temp = self.jsonService.DataToObj(data: data, type: User.self)
 				{
-					self.taskDataset = temp
-					print(temp)
+					DispatchQueue.main.async {
+						self.userName.text = temp.name
+						self.userLevel.text = String(temp.rating)
+					}
 				}
 				else if let error = error {
 					print("HTTP Request Failed \(error)")
-					}
 				}
-				DispatchQueue.main.async {
-					self.taskTable.reloadData()
+			}
+		}
+	}
+	
+	func updateTasks() {
+		httpService.GetRequest(url: "http://localhost:8082/get/tasks?name=pip") {
+			data, response, error in
+			if let data = data {
+				if let temp = self.jsonService.DataToObj(data: data, type: [TaskDataModel].self) {
+					self.taskDataset = temp
+				}
+				else if let error = error {
+					print("HTTP Request Failed \(error)")
+				}
+			}
+			DispatchQueue.main.async {
+				self.taskTable.reloadData()
 			}
 		}
 	}
@@ -108,10 +130,16 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
 	}
 	
 	private func handleEndTask() {
+		httpService.DeleteRequest("http://localhost:8080/", parameters: ["userName": "pip", "taskName": "name"]) {
+			_, _ in
+		}
 		print("handleEndTask")
 	}
 	
 	private func handleGiveUp() {
+		httpService.DeleteRequest("http://localhost:8080/", parameters: ["userName": "pip", "taskName": "name"]) {
+			_, _ in
+		}
 		print("handleGiveUp")
 	}
 }

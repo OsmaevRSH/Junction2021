@@ -18,9 +18,10 @@ class JsonService {
 		return json
 	}
 	
-	func DataToObj<T: Codable>(data: Data, type: T.Type) -> [T]? {
+	func DataToObj<T: Codable>(data: Data, type: T.Type) -> T? {
 		do {
-			let books = try decoder.decode([T].self, from: data)
+//			print(String(data: data, encoding: .utf8))
+			let books = try decoder.decode(type, from: data)
 			return books
 		}
 		catch {
