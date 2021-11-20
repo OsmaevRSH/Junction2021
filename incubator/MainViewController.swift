@@ -8,6 +8,7 @@ class MainViewController: UIViewController {
 	let httpService = HttpService()
 	var searchResults: [TaskDataModel] = []
 	let jsonService = JsonService()
+	var taskDataset: [TaskDataModel]?
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -21,7 +22,22 @@ class MainViewController: UIViewController {
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 		httpService.GetDataFromApi(url: "http://localhost:8082/get/tasks?name=pip")
-//		httpService.GetDataFromApi(url: "http://localhost:8080/user/1")
+		{
+			data, response, error in
+			if let data = data {
+				if let temp = self.jsonService.DataToObj(data: data, type: TaskDataModel.self)
+				{
+					self.taskDataset = temp
+					print(temp)
+				}
+				else if let error = error {
+					print("HTTP Request Failed \(error)")
+					}
+				}
+				DispatchQueue.main.async {
+					self.taskTable.reloadData()
+			}
+		}
 	}
 	
 	func FormatUserAvatar()
@@ -42,19 +58,23 @@ class MainViewController: UIViewController {
 
 extension MainViewController: UITableViewDelegate, UITableViewDataSource {
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return 20
+		guard let temp = taskDataset else { return 0 }
+		return temp.count
 	}
 	
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		if let cell = tableView.dequeueReusableCell(withIdentifier: taskTableCellId, for: indexPath) as? TaskTableViewCell
 		{
-			cell.name.text = "Start"
-			cell.name.sizeToFit()
-			cell.task.text = "WenderCast displays a list of raywenderlich.com podcasts and lets users play them. But it doesn’t let users know when a new podcast is available and the News tab is empty! You’ll soon fix these issues with the power of push notifications."
-			cell.task.sizeToFit()
-			cell.date.text = "22.12.2012"
-			cell.date.sizeToFit()
-			return cell
+			if let localDataset = taskDataset {
+				let item = localDataset[indexPath.row]
+				cell.name.text = item.Name
+				cell.name.sizeToFit()
+				cell.task.text = item.Description
+				cell.task.sizeToFit()
+				cell.date.text = item.End_date
+				cell.date.sizeToFit()
+				return cell
+			}
 		}
 		return UITableViewCell()
 	}

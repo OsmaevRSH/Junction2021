@@ -32,6 +32,7 @@ class AddNewTaskViewController: UIViewController {
 		if let json = jsonService.ObjToJson(taskData) {
 			httpService.postRequest(url: "http://localhost:8082/create/task", data: json)
 		}
+//		usleep(100000)
 	}
 	
 	func FormatSubmitButton()

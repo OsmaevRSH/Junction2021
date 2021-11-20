@@ -2,8 +2,6 @@ import Foundation
 
 class HttpService {
 	var dataTask: URLSessionDataTask?
-	let defaultSession = URLSession.shared
-	let jsonDecoder = JsonService()
 	
 	var errorMessage = ""
 	var tasks: [TaskDataModel] = []
@@ -11,28 +9,11 @@ class HttpService {
 	typealias JSONDictionary = [String: Any]
 	typealias QueryResult = ([TaskDataModel]?, String) -> Void
 	
-	func GetDataFromApi(url: String) {
-		
+	func GetDataFromApi(url: String, handler: @escaping (Data?, URLResponse?, Error?) -> Void)  {
 		let url = URL(string: url)!
-		
 		var request = URLRequest(url: url)
-		
 		request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-		
-		let task = URLSession.shared.dataTask(with: url)
-		{
-			data, response, error in
-			if let data = data {
-				if let test = self.jsonDecoder.DataToObj(data: data, type: TaskDataModel.self)
-				{
-					for item in test {
-						print(item.Name, item.Description, item.End_date, item.Start_date, item.User_name)
-					}
-				}
-			} else if let error = error {
-				print("HTTP Request Failed \(error)")
-			}
-		}
+		let task = URLSession.shared.dataTask(with: url, completionHandler: handler)
 		task.resume()
 	}
 	
@@ -40,10 +21,10 @@ class HttpService {
 		
 		let url = URL(string: url)!
 		var request = URLRequest(url: url)
+		let lock = DispatchSemaphore(value: 0)
 		request.httpMethod = "POST"
 		request.setValue("\(String(describing: data.count))", forHTTPHeaderField: "Content-Length")
 		request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-		print(data)
 		request.httpBody = data.data(using: .utf8)
 		
 		let task = URLSession.shared.dataTask(with: request) { data, response, error in
@@ -51,11 +32,13 @@ class HttpService {
 				print(error?.localizedDescription ?? "No data")
 				return
 			}
-			print(response.debugDescription)
 			let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
 			if let responseJSON = responseJSON as? [String: Any] {
-				print(responseJSON)			}
+				print(responseJSON)
+			}
+			lock.signal()
 		}
 		task.resume()
+		lock.wait()
 	}
 }
