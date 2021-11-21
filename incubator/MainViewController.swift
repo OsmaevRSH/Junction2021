@@ -157,6 +157,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
 		let json = jsonService.ObjToJson(task)!
 		httpService.PostRequest(url: "http://localhost:8082/delete/task/finished", data: json)
 		updateTasks()
+		updateUser()
 		print("handleEndTask")
 	}
 	
