@@ -1,4 +1,7 @@
 # Junction2021
+<<<<<<< HEAD
+![alt text](screenshots/"Component 5.jpg")
+=======
 
 Start of the backend:
 
@@ -18,3 +21,4 @@ Launching frontend:
 **Attention!!!
     Both backend and frontend must be run on the same computer, since localhost is used for network communication.**
 
+>>>>>>> 4142e3e60ac9ee3ce0be22b171d0cab73dedafa5
