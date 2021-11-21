@@ -20,7 +20,7 @@ class JsonService {
 	
 	func DataToObj<T: Codable>(data: Data, type: T.Type) -> T? {
 		do {
-//			print(String(data: data, encoding: .utf8))
+			print(String(data: data, encoding: .utf8))
 			let books = try decoder.decode(type, from: data)
 			return books
 		}

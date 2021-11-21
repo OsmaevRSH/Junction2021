@@ -2,9 +2,9 @@ import Foundation
 
 struct User: Codable {
 	let name: String
-	let rating: Int
+	let xp: Float
 	
 	private enum CodingKeys: String, CodingKey {
-		case name, rating
+		case name, xp
 	}
 }

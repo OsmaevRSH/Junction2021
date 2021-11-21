@@ -41,26 +41,4 @@ class HttpService {
 		task.resume()
 		lock.wait()
 	}
-	
-	func DeleteRequest(_ url: String, parameters: [String: String], completion: @escaping ([String: Any]?, Error?) -> Void) {
-		var components = URLComponents(string: url)!
-		components.queryItems = parameters.map { (key, value) in
-			URLQueryItem(name: key, value: value)
-		}
-		components.percentEncodedQuery = components.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
-		var request = URLRequest(url: components.url!)
-		request.httpMethod = "DELETE"
-		
-		let task = URLSession.shared.dataTask(with: request) { data, response, error in
-			guard let data = data, error == nil else {
-				print(error?.localizedDescription ?? "No data")
-				return
-			}
-			let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
-			if let responseJSON = responseJSON as? [String: Any] {
-				print(responseJSON)
-			}
-		}
-		task.resume()
-	}
 }

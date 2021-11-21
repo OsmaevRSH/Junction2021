@@ -6,12 +6,17 @@ class AddNewTaskViewController: UIViewController {
 	@IBOutlet weak var taskDescription: UITextView!
 	@IBOutlet weak var calendar: UIDatePicker!
 	@IBOutlet weak var task: UITextField!
+	let defaults = UserDefaults.standard
+	var localUserName: String?
 	
 	let httpService = HttpService()
 	let jsonService = JsonService()
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
+		if let login = defaults.string(forKey: "localUserName") {
+			localUserName = login
+		}
 		FormatSubmitButton()
 		FormatUITextView()
 	}
@@ -27,12 +32,11 @@ class AddNewTaskViewController: UIViewController {
 									 End_date: calendar.date.description,
 									 Description: taskDescription.text,
 									 Start_date: dateString,
-									 User_name: "pip") //TODO userName
+									 User_name: localUserName!) //TODO userName
 		
 		if let json = jsonService.ObjToJson(taskData) {
 			httpService.PostRequest(url: "http://localhost:8082/create/task", data: json)
 		}
-//		usleep(100000)
 	}
 	
 	func FormatSubmitButton()

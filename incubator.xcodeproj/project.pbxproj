@@ -21,6 +21,8 @@
 		C123F8BD27492077000E79F4 /* JsonService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C123F8BC27492077000E79F4 /* JsonService.swift */; };
 		C123F8BF27496DF3000E79F4 /* DateExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = C123F8BE27496DF3000E79F4 /* DateExtention.swift */; };
 		C123F8C22749877E000E79F4 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C123F8C12749877E000E79F4 /* User.swift */; };
+		C193C5C32749D3020084F9B5 /* CreateAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C193C5C22749D3020084F9B5 /* CreateAccountViewController.swift */; };
+		C193C5C52749F1CC0084F9B5 /* FinishTaskModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C193C5C42749F1CC0084F9B5 /* FinishTaskModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +42,8 @@
 		C123F8BC27492077000E79F4 /* JsonService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonService.swift; sourceTree = "<group>"; };
 		C123F8BE27496DF3000E79F4 /* DateExtention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtention.swift; sourceTree = "<group>"; };
 		C123F8C12749877E000E79F4 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		C193C5C22749D3020084F9B5 /* CreateAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountViewController.swift; sourceTree = "<group>"; };
+		C193C5C42749F1CC0084F9B5 /* FinishTaskModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinishTaskModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +94,7 @@
 			children = (
 				C123F8B12748FEAD000E79F4 /* AddNewTaskViewController.swift */,
 				C11702E22748F83A00F484E1 /* MainViewController.swift */,
+				C193C5C22749D3020084F9B5 /* CreateAccountViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -143,6 +148,7 @@
 			children = (
 				C123F8BA27491322000E79F4 /* TaskDataModel.swift */,
 				C123F8C12749877E000E79F4 /* User.swift */,
+				C193C5C42749F1CC0084F9B5 /* FinishTaskModel.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -218,12 +224,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C193C5C32749D3020084F9B5 /* CreateAccountViewController.swift in Sources */,
 				C11702E32748F83A00F484E1 /* MainViewController.swift in Sources */,
 				C11702DF2748F83A00F484E1 /* AppDelegate.swift in Sources */,
 				C123F8BF27496DF3000E79F4 /* DateExtention.swift in Sources */,
 				C11702F82748FD3C00F484E1 /* TaskTableViewCell.swift in Sources */,
 				C11702E12748F83A00F484E1 /* SceneDelegate.swift in Sources */,
 				C123F8B22748FEAD000E79F4 /* AddNewTaskViewController.swift in Sources */,
+				C193C5C52749F1CC0084F9B5 /* FinishTaskModel.swift in Sources */,
 				C11702F62748FCFF00F484E1 /* UIImageViewExtention.swift in Sources */,
 				C123F8B927490E95000E79F4 /* HttpService.swift in Sources */,
 				C123F8BB27491322000E79F4 /* TaskDataModel.swift in Sources */,
