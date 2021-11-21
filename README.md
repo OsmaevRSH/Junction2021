@@ -17,3 +17,7 @@ Launching frontend:
 
 **Attention!!!
     Both backend and frontend must be run on the same computer, since localhost is used for network communication.**
+
+# Photos:
+
+![alt text](Component%205.jpg)
